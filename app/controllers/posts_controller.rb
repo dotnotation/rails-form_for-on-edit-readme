@@ -25,7 +25,8 @@ class PostsController < ApplicationController
 
 	def update
 	  @post = Post.find(params[:id])
-	  @post.update(title: params[:title], description: params[:description])
+	  @post.update(params.require(:post).permit(:title, :description))
+	  # because of form_for, we need to require the post class as it requires a nested hash to store params	  
 	  redirect_to post_path(@post)
 	end
 end
